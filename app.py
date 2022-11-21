@@ -1,5 +1,7 @@
 
 import db
+import crawling
+import chart
 from flask import Flask, render_template, request
 app = Flask(__name__)
 
@@ -21,7 +23,17 @@ def action_page():
 @app.route('/msg')
 def msg():
     contact_list = db.select_data()
-    return render_template("action_page.html", data=contact_list)
+    return render_template("message.html", data=contact_list)
+
+@app.route('/movie')
+def movie():
+    contact_list = crawling.get_movie()
+    return render_template("movie.html", data=contact_list)
+
+@app.route('/melon')
+def melon():
+    contact_list = chart.get_melon()
+    return render_template("melon.html", data=contact_list)
 
 if __name__ == '__main__':
     app.run(host='210.110.167.56')
